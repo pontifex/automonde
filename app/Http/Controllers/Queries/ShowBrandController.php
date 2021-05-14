@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Queries;
 
 use App\Exceptions\ResourceNotFoundException;
+use App\Serializers\BrandSerializer;
 use App\Services\BrandService;
 use App\Services\Debug;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -17,9 +18,16 @@ class ShowBrandController extends BaseController
     /** @var BrandService */
     private $brandService;
 
-    public function __construct(BrandService $brandService)
+    /** @var BrandSerializer */
+    private $serializer;
+
+    public function __construct(
+        BrandService $brandService,
+        BrandSerializer $serializer
+    )
     {
         $this->brandService = $brandService;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -37,10 +45,7 @@ class ShowBrandController extends BaseController
         }
 
         return new JsonResponse(
-            [
-                'id' => $brand->getId(),
-                'name' => $brand->getName(),
-            ]
+            $this->serializer->serialize($brand)
         );
     }
 }
