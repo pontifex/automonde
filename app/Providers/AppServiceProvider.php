@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Doctrine\BrandRepository;
+use App\Services\BrandService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(BrandService::class, function ($app) {
+            return new BrandService(
+                $app->get(BrandRepository::class)
+            );
+        });
     }
 
     /**

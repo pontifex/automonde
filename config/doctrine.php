@@ -27,7 +27,7 @@ return [
             'connection'    => env('DB_CONNECTION', 'mysql'),
             'namespaces'    => [],
             'paths'         => [
-                base_path('app/Entities')
+                base_path('app/Domain/Entities')
             ],
             'repository'    => Doctrine\ORM\EntityRepository::class,
             'proxies'       => [
@@ -108,6 +108,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'custom_types'               => [
+        Ramsey\Uuid\Doctrine\UuidType::NAME => Ramsey\Uuid\Doctrine\UuidType::class
     ],
     /*
     |--------------------------------------------------------------------------
