@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Commands\AddBrandCommand;
 use App\Domain\Entities\Brand;
 use App\Services\BrandService;
+use App\Services\Slug;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -14,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 
 class AddBrand implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Slug;
 
     /** @var AddBrandCommand */
     private $command;
@@ -28,7 +29,8 @@ class AddBrand implements ShouldQueue
     {
         $brand = new Brand(
             Uuid::fromString($this->command->getId()),
-            $this->command->getName()
+            $this->command->getName(),
+            $this->slug($this->command->getName())
         );
 
         $brandService->addBrand(

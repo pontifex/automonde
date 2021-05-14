@@ -27,10 +27,20 @@ class Brand
      */
     protected $name;
 
-    public function __construct(UuidInterface $id, string $name)
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $slug;
+
+    public function __construct(
+        UuidInterface $id,
+        string $name,
+        string $slug
+    )
     {
         $this->id = $id;
         $this->name = $name;
+        $this->slug = $slug;
     }
 
     public function getId(): string
@@ -41,5 +51,10 @@ class Brand
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
     }
 }
