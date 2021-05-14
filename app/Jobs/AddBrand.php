@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Ramsey\Uuid\Uuid;
 
 class AddBrand implements ShouldQueue
 {
@@ -26,7 +27,7 @@ class AddBrand implements ShouldQueue
     public function handle(BrandService $brandService)
     {
         $brand = new Brand(
-            $this->command->getId(),
+            Uuid::fromString($this->command->getId()),
             $this->command->getName()
         );
 

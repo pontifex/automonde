@@ -3,6 +3,7 @@
 namespace App\Repositories\Doctrine;
 
 use App\Domain\Entities\Brand;
+use App\Exceptions\ResourceNotFoundException;
 use App\Repositories\IBrandRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -24,10 +25,17 @@ class BrandRepository implements IBrandRepository
         $this->em->flush();
     }
 
-    public function getBrandById(string $id): ?Brand
+    /**
+     * @throws ResourceNotFoundException
+     */
+    public function getBrandById(string $id): Brand
     {
         /** @var Brand|null $brand */
         $brand = $this->em->find(Brand::class, $id);
+
+        if (null === $brand) {
+            throw new ResourceNotFoundException();
+        }
 
         return $brand;
     }

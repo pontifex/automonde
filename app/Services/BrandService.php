@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Domain\Entities\Brand;
+use App\Exceptions\ResourceNotFoundException;
 use App\Repositories\Doctrine\BrandRepository;
 use App\Repositories\IBrandRepository;
 
@@ -25,9 +26,12 @@ class BrandService
         $this->brandRepository->addBrand($brand);
     }
 
+    /**
+     * @throws ResourceNotFoundException
+     */
     public function getBrandById(
         string $id
-    ): ?Brand
+    ): Brand
     {
         return $this->brandRepository->getBrandById($id);
     }

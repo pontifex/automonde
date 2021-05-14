@@ -3,6 +3,7 @@
 namespace App\Domain\Entities;
 
 use Doctrine\ORM\Mapping AS ORM;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 
@@ -26,7 +27,7 @@ class Brand
      */
     protected $name;
 
-    public function __construct(string $id, string $name)
+    public function __construct(UuidInterface $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
@@ -34,11 +35,7 @@ class Brand
 
     public function getId(): string
     {
-        if ($this->id instanceof UuidInterface) {
-            return $this->id->toString();
-        }
-
-        return $this->id;
+        return $this->id->toString();
     }
 
     public function getName(): string

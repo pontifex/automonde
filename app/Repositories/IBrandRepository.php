@@ -12,5 +12,5 @@ interface IBrandRepository
 
     public function getBrandById(
         string $id
-    ): ?Brand;
+    ): Brand;
 }
