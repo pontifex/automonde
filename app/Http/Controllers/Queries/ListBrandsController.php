@@ -7,6 +7,7 @@ use App\Serializers\BrandSerializer;
 use App\Serializers\Serialize;
 use App\Services\BrandService;
 use Illuminate\Routing\Controller as BaseController;
+use Libs\Api\Fields\Exceptions\IncorrectFieldException;
 use Libs\Api\Fields\Exceptions\NoFieldsException;
 use Libs\Api\Fields\Fields;
 use Libs\Api\IApi;
@@ -15,7 +16,6 @@ use Libs\Debug\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Libs\Api\Fields\Exceptions\IncorrectFieldException;
 
 class ListBrandsController extends BaseController
 {

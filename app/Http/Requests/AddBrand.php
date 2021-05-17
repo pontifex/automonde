@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Rules\UniqueBrand;
 use App\Serializers\BrandSerializer;
-use App\Serializers\ISerializer;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AddBrand extends FormRequest
