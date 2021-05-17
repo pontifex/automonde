@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Domain\Entities\Brand;
+use Doctrine\Common\Collections\Collection;
 
 interface IBrandRepository
 {
@@ -13,4 +14,6 @@ interface IBrandRepository
     public function getOneById(
         string $id
     ): Brand;
+
+    public function list(int $pageNumber, int $pageSize): Collection;
 }

@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Rules\UniqueBrand;
-use App\Serializers\IBrandSerializer;
+use App\Serializers\BrandSerializer;
+use App\Serializers\ISerializer;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AddBrand extends FormRequest
@@ -29,7 +30,7 @@ class AddBrand extends FormRequest
     public function rules(): array
     {
         return [
-            sprintf('%s.name', IBrandSerializer::TYPE) => [
+            sprintf('%s.name', BrandSerializer::getType()) => [
                 'required',
                 'string',
                 $this->uniqueBrand

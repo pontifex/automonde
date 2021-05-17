@@ -10,15 +10,19 @@ use Illuminate\Routing\Controller as BaseController;
 use Libs\Api\Fields\Exceptions\NoFieldsException;
 use Libs\Api\Fields\Fields;
 use Libs\Api\IApi;
+use Libs\Api\Pagination\Pagination;
 use Libs\Debug\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Libs\Api\Fields\Exceptions\IncorrectFieldException;
 
-class ShowBrandController extends BaseController
+class ListBrandsController extends BaseController
 {
-    use Debug, Fields, Serialize;
+    use Debug, Fields, Pagination, Serialize;
+
+    private const DEFAULT_PAGE_NUMBER = 1;
+    private const DEFAULT_SIZE = 15;
 
     /** @var BrandService */
     private $brandService;
@@ -40,8 +44,14 @@ class ShowBrandController extends BaseController
      * @throws NoFieldsException
      * @throws ResourceNotFoundException
      */
-    public function index(Request $request, string $id): Response
+    public function index(Request $request): Response
     {
+        [$pageNumber, $pageSize] = $this->extractPaginationParams(
+            $request->get(IApi::FIELDS_PARAM, []),
+            self::DEFAULT_PAGE_NUMBER,
+            self::DEFAULT_SIZE
+        );
+
         $fields = $this->getFields(
             $request->get(IApi::FIELDS_PARAM, []),
             $this->serializer->getType(),
@@ -49,16 +59,21 @@ class ShowBrandController extends BaseController
         );
 
         try {
-            $brand = $this->brandService->getBrandById($id);
-        } catch (ResourceNotFoundException $e) {
-            throw $e;
+            $brands = $this->brandService->listBrands(
+                $pageNumber,
+                $pageSize
+            );
         } catch (\Exception $e) {
             $this->debugException($e);
             throw new ResourceNotFoundException('Not found');
         }
 
         return new JsonResponse(
-            $this->serialize($this->serializer, $brand, $fields)
+            $this->serializeCollection(
+                $this->serializer,
+                $brands,
+                $fields
+            )
         );
     }
 }

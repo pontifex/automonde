@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Libs\Api\Fields\Exceptions\IFieldsException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -43,7 +44,9 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        if ($e instanceof IApiException) {
+        if ($e instanceof IApiException
+            || $e instanceof IFieldsException
+        ) {
             return new JsonResponse(
                 [
                     'errors' => [

@@ -6,7 +6,8 @@ use App\Commands\AddBrandCommand;
 use App\Http\Requests\AddBrand as AddBrandRequest;
 use App\Jobs\AddBrand;
 use App\Serializers\BrandSerializer;
-use App\Serializers\IBrandSerializer;
+use App\Serializers\ISerializer;
+use App\Serializers\Serialize;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Ramsey\Uuid\Uuid;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AddBrandController extends BaseController
 {
-    use DispatchesJobs;
+    use DispatchesJobs, Serialize;
 
     /** @var BrandSerializer */
     private $serializer;
@@ -31,7 +32,7 @@ class AddBrandController extends BaseController
 
         $command = new AddBrandCommand(
             $id,
-            $request->get(IBrandSerializer::TYPE)['name']
+            $request->get($this->serializer->getType())['name']
         );
 
         $this->dispatch(
@@ -39,7 +40,7 @@ class AddBrandController extends BaseController
         );
 
         return new JsonResponse(
-            $this->serializer->serializeId($id)
+            $this->serializeId($this->serializer, $id)
         );
     }
 }

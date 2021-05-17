@@ -5,6 +5,8 @@ namespace App\Repositories\Doctrine;
 use App\Domain\Entities\Brand;
 use App\Exceptions\ResourceNotFoundException;
 use App\Repositories\IBrandRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 
 class BrandRepository implements IBrandRepository
@@ -47,5 +49,13 @@ class BrandRepository implements IBrandRepository
         }
 
         return $brand;
+    }
+
+    public function list(int $pageNumber, int $pageSize): Collection
+    {
+        $brandsArr = $this->em->getRepository(Brand::class)
+            ->findBy([], null, $pageSize, ($pageNumber - 1) * $pageSize);
+
+        return new ArrayCollection($brandsArr);
     }
 }

@@ -3,13 +3,25 @@
 namespace App\Serializers;
 
 use App\Domain\Entities\Brand;
+use App\Domain\Entities\ISerializable;
 
-class BrandSerializer implements IBrandSerializer
+class BrandSerializer implements ISerializer
 {
-    use SerializeId;
+    private const TYPE = 'brands';
 
-    public function serialize(Brand $brand, array $fields): array
+    public static function getType(): string
     {
+        return self::TYPE;
+    }
+
+    public function serialize(ISerializable $brand, array $fields): array
+    {
+        if (! $brand instanceof Brand) {
+            throw new \RuntimeException(
+                sprintf('Wrong type provided %s but expected %s', get_class($brand), Brand::class)
+            );
+        }
+
         $serialized = [];
         foreach ($fields['brands'] as $field) {
             switch ($field) {
@@ -25,16 +37,6 @@ class BrandSerializer implements IBrandSerializer
             }
         }
 
-        return [
-            IBrandSerializer::TYPE => $serialized,
-        ];
-    }
-
-    public function serializeId(string $id): array
-    {
-        return $this->serializeIdWithType(
-            IBrandSerializer::TYPE,
-            $id
-        );
+        return $serialized;
     }
 }

@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\Commands\AddBrandController;
+use App\Http\Controllers\Queries\ListBrandsController;
+use App\Http\Controllers\Queries\ShowBrandController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Commands\AddBrandController;
-use App\Http\Controllers\Queries\ShowBrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,16 +21,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/brand',
+Route::post('/brands',
     [
         AddBrandController::class,
         'index'
     ]
 );
 
-Route::get('/brand/{id}',
+Route::get('/brands/{id}',
     [
         ShowBrandController::class,
+        'index'
+    ]
+);
+
+Route::get('/brands',
+    [
+        ListBrandsController::class,
         'index'
     ]
 );

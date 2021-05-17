@@ -6,6 +6,7 @@ use App\Domain\Entities\Brand;
 use App\Exceptions\ResourceNotFoundException;
 use App\Repositories\Doctrine\BrandRepository;
 use App\Repositories\IBrandRepository;
+use Doctrine\Common\Collections\Collection;
 
 class BrandService
 {
@@ -39,5 +40,10 @@ class BrandService
     ): Brand
     {
         return $this->brandRepository->getOneById($id);
+    }
+
+    public function listBrands(int $pageNumber, int $pageSize): Collection
+    {
+        return $this->brandRepository->list($pageNumber, $pageSize);
     }
 }
