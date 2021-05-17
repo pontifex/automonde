@@ -8,7 +8,7 @@ interface IBrandSerializer
 {
     public const TYPE = 'brands';
 
-    public function serialize(Brand $brand): array;
+    public function serialize(Brand $brand, array $fields): array;
 
     public function serializeId(string $id): array;
 }

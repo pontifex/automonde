@@ -19,11 +19,16 @@ class BrandService
         $this->brandRepository = $brandRepository;
     }
 
+    public function getAllowedFields(): array
+    {
+        return $this->brandRepository->getAllowedFields();
+    }
+
     public function addBrand(
         Brand $brand
     ): void
     {
-        $this->brandRepository->addBrand($brand);
+        $this->brandRepository->addOne($brand);
     }
 
     /**
@@ -33,6 +38,6 @@ class BrandService
         string $id
     ): Brand
     {
-        return $this->brandRepository->getBrandById($id);
+        return $this->brandRepository->getOneById($id);
     }
 }

@@ -47,7 +47,7 @@ class Handler extends ExceptionHandler
             return new JsonResponse(
                 [
                     'errors' => [
-                        'Not found',
+                        $e->getMessage(),
                     ],
                 ],
                 Response::HTTP_NOT_FOUND

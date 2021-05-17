@@ -17,7 +17,16 @@ class BrandRepository implements IBrandRepository
         $this->em = $em;
     }
 
-    public function addBrand(
+    public static function getAllowedFields(): array
+    {
+        return [
+            'id',
+            'name',
+            'slug',
+        ];
+    }
+
+    public function addOne(
         Brand $brand
     )
     {
@@ -28,13 +37,13 @@ class BrandRepository implements IBrandRepository
     /**
      * @throws ResourceNotFoundException
      */
-    public function getBrandById(string $id): Brand
+    public function getOneById(string $id): Brand
     {
         /** @var Brand|null $brand */
         $brand = $this->em->find(Brand::class, $id);
 
         if (null === $brand) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException('Not found');
         }
 
         return $brand;

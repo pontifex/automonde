@@ -6,11 +6,11 @@ use App\Domain\Entities\Brand;
 
 interface IBrandRepository
 {
-    public function addBrand(
+    public function addOne(
         Brand $brand
     );
 
-    public function getBrandById(
+    public function getOneById(
         string $id
     ): Brand;
 }
