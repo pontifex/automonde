@@ -5,15 +5,15 @@ namespace App\Http\Controllers\Queries;
 use App\Exceptions\ResourceNotFoundException;
 use App\Serializers\BrandSerializer;
 use App\Services\BrandService;
-use App\Services\Debug;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
+use Libs\Debug\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class ShowBrandController extends BaseController
 {
-    use Debug, DispatchesJobs;
+    use DispatchesJobs, Debug;
 
     /** @var BrandService */
     private $brandService;

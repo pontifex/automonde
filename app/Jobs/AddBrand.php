@@ -5,7 +5,7 @@ namespace App\Jobs;
 use App\Commands\AddBrandCommand;
 use App\Domain\Entities\Brand;
 use App\Services\BrandService;
-use App\Services\Slug;
+use Libs\Slug\Slug;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

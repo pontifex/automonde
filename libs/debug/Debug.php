@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace Libs\Debug;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;

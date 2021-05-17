@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use App\Domain\Entities\Brand;
-use App\Services\Slug;
+use Libs\Slug\Slug;
 use Doctrine\ORM\EntityManager;
 use Illuminate\Contracts\Validation\Rule;
 
