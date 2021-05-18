@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Commands;
 use App\Commands\AddBrandCommand;
 use App\Http\Requests\AddBrand as AddBrandRequest;
 use App\Jobs\AddBrand;
-use App\Serializers\BrandSerializer;
+use App\Serializers\ISerializer;
 use App\Serializers\Serialize;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -17,10 +17,10 @@ class AddBrandController extends BaseController
 {
     use DispatchesJobs, Serialize;
 
-    /** @var BrandSerializer */
+    /** @var ISerializer */
     private $serializer;
 
-    public function __construct(BrandSerializer $serializer)
+    public function __construct(ISerializer $serializer)
     {
         $this->serializer = $serializer;
     }

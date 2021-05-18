@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Queries;
 
 use App\Exceptions\ResourceNotFoundException;
-use App\Serializers\BrandSerializer;
+use App\Repositories\IBrandRepository;
+use App\Serializers\ISerializer;
 use App\Serializers\Serialize;
-use App\Services\BrandService;
+use Exception;
 use Illuminate\Routing\Controller as BaseController;
 use Libs\Api\Fields\Exceptions\IncorrectFieldException;
 use Libs\Api\Fields\Exceptions\NoFieldsException;
@@ -24,18 +25,18 @@ class ListBrandsController extends BaseController
     private const DEFAULT_PAGE_NUMBER = 1;
     private const DEFAULT_SIZE = 15;
 
-    /** @var BrandService */
-    private $brandService;
+    /** @var IBrandRepository */
+    private $brandRepository;
 
-    /** @var BrandSerializer */
+    /** @var ISerializer */
     private $serializer;
 
     public function __construct(
-        BrandService $brandService,
-        BrandSerializer $serializer
+        IBrandRepository $brandRepository,
+        ISerializer $serializer
     )
     {
-        $this->brandService = $brandService;
+        $this->brandRepository = $brandRepository;
         $this->serializer = $serializer;
     }
 
@@ -55,15 +56,15 @@ class ListBrandsController extends BaseController
         $fields = $this->getFields(
             $request->get(IApi::FIELDS_PARAM, []),
             $this->serializer->getType(),
-            $this->brandService->getAllowedFields()
+            $this->brandRepository->getAllowedFields()
         );
 
         try {
-            $brands = $this->brandService->listBrands(
+            $brands = $this->brandRepository->list(
                 $pageNumber,
                 $pageSize
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->debugException($e);
             throw new ResourceNotFoundException('Not found');
         }

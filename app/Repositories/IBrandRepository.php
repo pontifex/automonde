@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Domain\Entities\Brand;
+use App\Exceptions\ResourceNotFoundException;
 use Doctrine\Common\Collections\Collection;
 
 interface IBrandRepository
@@ -11,6 +12,9 @@ interface IBrandRepository
         Brand $brand
     );
 
+    /**
+     * @throws ResourceNotFoundException
+     */
     public function getOneById(
         string $id
     ): Brand;

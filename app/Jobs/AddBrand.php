@@ -4,13 +4,13 @@ namespace App\Jobs;
 
 use App\Commands\AddBrandCommand;
 use App\Domain\Entities\Brand;
-use App\Services\BrandService;
-use Libs\Slug\Slug;
+use App\Repositories\IBrandRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Libs\Slug\Slug;
 use Ramsey\Uuid\Uuid;
 
 class AddBrand implements ShouldQueue
@@ -25,7 +25,7 @@ class AddBrand implements ShouldQueue
         $this->command = $command;
     }
 
-    public function handle(BrandService $brandService)
+    public function handle(IBrandRepository $brandRepository)
     {
         $brand = new Brand(
             Uuid::fromString($this->command->getId()),
@@ -33,7 +33,7 @@ class AddBrand implements ShouldQueue
             $this->slug($this->command->getName())
         );
 
-        $brandService->addBrand(
+        $brandRepository->addOne(
             $brand
         );
     }
