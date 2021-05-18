@@ -2,35 +2,27 @@
 
 namespace App\Rules;
 
-use App\Domain\Entities\Brand;
-use Libs\Slug\Slug;
-use Doctrine\ORM\EntityManager;
+use App\Repositories\IBrandRepository;
 use Illuminate\Contracts\Validation\Rule;
+use Libs\Slug\Slug;
 
 class UniqueBrand implements Rule
 {
     use Slug;
 
-    /** @var EntityManager */
-    private $em;
+    /** @var IBrandRepository */
+    private $brandRepository;
 
     public function __construct(
-        EntityManager $em
+        IBrandRepository $brandRepository
     )
     {
-        $this->em = $em;
+        $this->brandRepository = $brandRepository;
     }
 
     public function passes($attribute, $value): bool
     {
-        $q = $this->em->createQueryBuilder()
-            ->select('count(b.id)')
-            ->from(Brand::class, 'b')
-            ->where('b.slug = :brandName')
-            ->setParameter('brandName', $this->slug($value))
-            ->getQuery();
-
-        return ((int) $q->getSingleScalarResult() === 0);
+        return $this->brandRepository->isUniqueBySlug($this->slug($value));
     }
 
     public function message(): string

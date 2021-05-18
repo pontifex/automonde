@@ -58,4 +58,16 @@ class BrandRepository implements IBrandRepository
 
         return new ArrayCollection($brandsArr);
     }
+
+    public function isUniqueBySlug(string $slug): bool
+    {
+        $q = $this->em->createQueryBuilder()
+            ->select('count(b.id)')
+            ->from(Brand::class, 'b')
+            ->where('b.slug = :brandName')
+            ->setParameter('brandName', $slug)
+            ->getQuery();
+
+        return ((int) $q->getSingleScalarResult() === 0);
+    }
 }

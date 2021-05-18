@@ -20,4 +20,6 @@ interface IBrandRepository
     ): Brand;
 
     public function list(int $pageNumber, int $pageSize): Collection;
+
+    public function isUniqueBySlug(string $slug): bool;
 }
