@@ -19,15 +19,6 @@ class BrandRepository implements IBrandRepository
         $this->em = $em;
     }
 
-    public static function getAllowedFields(): array
-    {
-        return [
-            'id',
-            'name',
-            'slug',
-        ];
-    }
-
     public function addOne(
         Brand $brand
     )

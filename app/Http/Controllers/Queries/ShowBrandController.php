@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Queries;
 
+use App\Domain\Entities\Brand;
 use App\Exceptions\ResourceNotFoundException;
 use App\Repositories\IBrandRepository;
 use App\Serializers\ISerializer;
@@ -46,7 +47,7 @@ class ShowBrandController extends BaseController
         $fields = $this->getFields(
             $request->get(IApi::FIELDS_PARAM, []),
             $this->serializer->getType(),
-            $this->brandRepository->getAllowedFields()
+            Brand::getAllowedFields()
         );
 
         try {

@@ -57,4 +57,13 @@ class Brand implements ISerializable
     {
         return $this->slug;
     }
+
+    public static function getAllowedFields(): array
+    {
+        return [
+            'id',
+            'name',
+            'slug',
+        ];
+    }
 }
