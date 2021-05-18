@@ -2,13 +2,17 @@
 
 namespace App\Providers;
 
+use App\CacheManagers\BrandCacheManager;
+use App\CacheManagers\IBrandCacheManager;
 use App\Http\Controllers\Commands\AddBrandController;
 use App\Http\Controllers\Queries\ListBrandsController;
 use App\Http\Controllers\Queries\ShowBrandController;
-use App\Repositories\Doctrine\BrandRepository;
+use App\Hydrators\Cache\BrandHydrator;
+use App\Repositories\CachedBrandRepository;
+use App\Repositories\DoctrineBrandRepository;
 use App\Repositories\IBrandRepository;
 use App\Serializers\BrandSerializer;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Serializers\Cache\BrandSerializer as BrandCacheSerializer;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -35,9 +39,17 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
+        $this->app->bind(IBrandCacheManager::class, function ($app) {
+            return new BrandCacheManager(
+                $app->get(BrandHydrator::class),
+                $app->get(BrandCacheSerializer::class),
+            );
+        });
+
         $this->app->bind(IBrandRepository::class, function ($app) {
-            return new BrandRepository(
-                $app->get(EntityManagerInterface::class)
+            return new CachedBrandRepository(
+                $app->get(DoctrineBrandRepository::class),
+                $app->get(IBrandCacheManager::class),
             );
         });
     }

@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Repositories\Doctrine;
+namespace App\Repositories;
 
 use App\Domain\Entities\Brand;
 use App\Exceptions\ResourceNotFoundException;
-use App\Repositories\IBrandRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 
-class BrandRepository implements IBrandRepository
+class DoctrineBrandRepository implements IBrandRepository
 {
     /** @var EntityManagerInterface */
     private $em;

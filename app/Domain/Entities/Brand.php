@@ -11,7 +11,7 @@ use Ramsey\Uuid\Doctrine\UuidGenerator;
  * @ORM\Entity
  * @ORM\Table(name="brands")
  */
-class Brand implements ISerializable
+class Brand implements IHydrateable, ISerializable
 {
     /**
      * @var UuidInterface
