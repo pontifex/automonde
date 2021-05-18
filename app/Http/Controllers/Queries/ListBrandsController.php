@@ -12,6 +12,8 @@ use Libs\Api\Fields\Exceptions\IncorrectFieldException;
 use Libs\Api\Fields\Exceptions\NoFieldsException;
 use Libs\Api\Fields\Fields;
 use Libs\Api\IApi;
+use Libs\Api\Pagination\Exceptions\IncorrectPageNumberException;
+use Libs\Api\Pagination\Exceptions\IncorrectPageSizeException;
 use Libs\Api\Pagination\Pagination;
 use Libs\Debug\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -44,11 +46,13 @@ class ListBrandsController extends BaseController
      * @throws IncorrectFieldException
      * @throws NoFieldsException
      * @throws ResourceNotFoundException
+     * @throws IncorrectPageNumberException
+     * @throws IncorrectPageSizeException
      */
     public function index(Request $request): Response
     {
         [$pageNumber, $pageSize] = $this->extractPaginationParams(
-            $request->get(IApi::FIELDS_PARAM, []),
+            $request->get(IApi::PAGE_PARAM, []),
             self::DEFAULT_PAGE_NUMBER,
             self::DEFAULT_SIZE
         );
@@ -66,7 +70,7 @@ class ListBrandsController extends BaseController
             );
         } catch (Exception $e) {
             $this->debugException($e);
-            throw new ResourceNotFoundException('Not found');
+            throw new ResourceNotFoundException();
         }
 
         return new JsonResponse(

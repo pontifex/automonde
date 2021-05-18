@@ -55,7 +55,7 @@ class ShowBrandController extends BaseController
             throw $e;
         } catch (Exception $e) {
             $this->debugException($e);
-            throw new ResourceNotFoundException('Not found');
+            throw new ResourceNotFoundException();
         }
 
         return new JsonResponse(

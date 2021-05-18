@@ -47,7 +47,7 @@ trait Fields
         }
 
         if (! count($match)) {
-            throw new NoFieldsException('No fields');
+            throw new NoFieldsException();
         }
 
         return $match;

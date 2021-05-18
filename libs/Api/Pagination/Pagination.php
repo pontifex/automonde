@@ -2,8 +2,15 @@
 
 namespace Libs\Api\Pagination;
 
+use Libs\Api\Pagination\Exceptions\IncorrectPageNumberException;
+use Libs\Api\Pagination\Exceptions\IncorrectPageSizeException;
+
 trait Pagination
 {
+    /**
+     * @throws IncorrectPageNumberException
+     * @throws IncorrectPageSizeException
+     */
     public function extractPaginationParams(
         array $pageArr,
         int $defaultNumber,
@@ -15,7 +22,7 @@ trait Pagination
             : $defaultNumber;
 
         if ($pageNumber <= 0) {
-            throw new \LogicException('Page number must be higher than 0');
+            throw new IncorrectPageNumberException();
         }
 
         $pageSize = (isset($pageArr['size']))
@@ -23,7 +30,7 @@ trait Pagination
             : $defaultSize;
 
         if ($pageSize <= 0) {
-            throw new \LogicException('Page size must be higher than 0');
+            throw new IncorrectPageSizeException();
         }
 
         return [$pageNumber, $pageSize];

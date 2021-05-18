@@ -45,7 +45,7 @@ class BrandRepository implements IBrandRepository
         $brand = $this->em->find(Brand::class, $id);
 
         if (null === $brand) {
-            throw new ResourceNotFoundException('Not found');
+            throw new ResourceNotFoundException();
         }
 
         return $brand;
