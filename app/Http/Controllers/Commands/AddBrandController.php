@@ -15,7 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AddBrandController extends BaseController
 {
-    use DispatchesJobs, Serialize;
+    use DispatchesJobs;
+    use Serialize;
 
     /** @var ISerializer */
     private $serializer;

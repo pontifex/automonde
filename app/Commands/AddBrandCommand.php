@@ -13,8 +13,7 @@ class AddBrandCommand
     public function __construct(
         string $id,
         string $name
-    )
-    {
+    ) {
         $this->id = $id;
         $this->name = $name;
     }

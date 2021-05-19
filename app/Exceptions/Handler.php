@@ -45,7 +45,8 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        if ($e instanceof IApiException
+        if (
+            $e instanceof IApiException
             || $e instanceof IFieldsException
             || $e instanceof IPaginationException
         ) {

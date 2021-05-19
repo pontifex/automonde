@@ -23,7 +23,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ListBrandsController extends BaseController
 {
-    use Debug, Fields, Pagination, Serialize;
+    use Debug;
+    use Fields;
+    use Pagination;
+    use Serialize;
 
     private const DEFAULT_PAGE_NUMBER = 1;
     private const DEFAULT_SIZE = 15;
@@ -37,8 +40,7 @@ class ListBrandsController extends BaseController
     public function __construct(
         IBrandRepository $brandRepository,
         ISerializer $serializer
-    )
-    {
+    ) {
         $this->brandRepository = $brandRepository;
         $this->serializer = $serializer;
     }

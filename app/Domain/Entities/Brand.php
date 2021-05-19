@@ -2,7 +2,7 @@
 
 namespace App\Domain\Entities;
 
-use Doctrine\ORM\Mapping AS ORM;
+use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
@@ -36,8 +36,7 @@ class Brand implements IHydrateable, ISerializable
         UuidInterface $id,
         string $name,
         string $slug
-    )
-    {
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->slug = $slug;

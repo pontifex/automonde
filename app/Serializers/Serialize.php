@@ -11,8 +11,7 @@ trait Serialize
         ISerializer $serializer,
         Collection $collection,
         array $fields
-    ): array
-    {
+    ): array {
         $serialized = [];
         foreach ($collection as $item) {
             $serialized[] = $serializer->serialize($item, $fields);
@@ -27,8 +26,7 @@ trait Serialize
         ISerializer $serializer,
         ISerializable $serializable,
         array $fields
-    ): array
-    {
+    ): array {
         return [
             $serializer->getType() => $serializer->serialize($serializable, $fields),
         ];
@@ -37,8 +35,7 @@ trait Serialize
     public function serializeId(
         ISerializer $serializer,
         string $id
-    ): array
-    {
+    ): array {
         return [
             $serializer->getType() => [
                 'id' => $id

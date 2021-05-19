@@ -20,8 +20,7 @@ class DoctrineBrandRepository implements IBrandRepository
 
     public function addOne(
         Brand $brand
-    )
-    {
+    ) {
         $this->em->persist($brand);
         $this->em->flush();
     }

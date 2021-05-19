@@ -15,10 +15,11 @@ use Illuminate\Support\Facades\Redis;
 
 class BrandCacheManager implements IBrandCacheManager
 {
+    use Hydrate;
+    use Serialize;
+
     private const CACHE_KEY_PATTERN_BRAND = '%s:%s';
     private const TIMEOUT = 360;
-
-    use Hydrate, Serialize;
 
     private $hydrator;
     private $serializer;
@@ -26,8 +27,7 @@ class BrandCacheManager implements IBrandCacheManager
     public function __construct(
         IHydrator $hydrator,
         ISerializer $serializer
-    )
-    {
+    ) {
         $this->hydrator = $hydrator;
         $this->serializer = $serializer;
 

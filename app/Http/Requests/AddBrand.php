@@ -20,8 +20,7 @@ class AddBrand extends FormRequest
         array $files = [],
         array $server = [],
         $content = null
-    )
-    {
+    ) {
         $this->uniqueBrand = $uniqueBrand;
         parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
     }

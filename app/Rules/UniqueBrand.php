@@ -15,8 +15,7 @@ class UniqueBrand implements Rule
 
     public function __construct(
         IBrandRepository $brandRepository
-    )
-    {
+    ) {
         $this->brandRepository = $brandRepository;
     }
 

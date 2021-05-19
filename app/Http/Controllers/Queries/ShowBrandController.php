@@ -20,7 +20,9 @@ use Exception;
 
 class ShowBrandController extends BaseController
 {
-    use Debug, Fields, Serialize;
+    use Debug;
+    use Fields;
+    use Serialize;
 
     /** @var IBrandRepository */
     private $brandRepository;
@@ -31,8 +33,7 @@ class ShowBrandController extends BaseController
     public function __construct(
         IBrandRepository $brandRepository,
         ISerializer $serializer
-    )
-    {
+    ) {
         $this->brandRepository = $brandRepository;
         $this->serializer = $serializer;
     }

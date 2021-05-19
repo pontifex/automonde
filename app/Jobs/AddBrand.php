@@ -15,7 +15,11 @@ use Ramsey\Uuid\Uuid;
 
 class AddBrand implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Slug;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
+    use Slug;
 
     /** @var AddBrandCommand */
     private $command;
