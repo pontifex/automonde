@@ -13,7 +13,7 @@ use App\Serializers\ISerializer;
 use App\Serializers\Serialize;
 use Illuminate\Support\Facades\Redis;
 
-class BrandCacheManager implements IBrandCacheManager
+class RedisBrandCacheManager implements IBrandCacheManager
 {
     use Hydrate;
     use Serialize;

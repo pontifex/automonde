@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\CacheManagers\BrandCacheManager;
+use App\CacheManagers\RedisBrandCacheManager;
 use App\CacheManagers\IBrandCacheManager;
 use App\Http\Controllers\Commands\AddBrandController;
 use App\Http\Controllers\Queries\ListBrandsController;
@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(IBrandCacheManager::class, function ($app) {
-            return new BrandCacheManager(
+            return new RedisBrandCacheManager(
                 $app->get(BrandHydrator::class),
                 $app->get(BrandCacheSerializer::class),
             );
