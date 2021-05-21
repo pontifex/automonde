@@ -18,6 +18,7 @@ use App\Serializers\BrandSerializer;
 use App\Serializers\Cache\BrandSerializer as BrandCacheSerializer;
 use App\Serializers\ModelSerializer;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -64,11 +65,15 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->singleton(IModelRepository::class, function ($app) {
+        $this->app->bind(IModelRepository::class, function ($app) {
             return new DoctrineModelRepository(
-                $app->get(EntityManagerInterface::class),
-                $app->get(DoctrineBrandRepository::class)
+                $app->get(EntityManagerInterface::class)
             );
+        });
+
+        // entity manager has to be same instance over entire system to avoid eg. persistence issues
+        $this->app->singleton(EntityManagerInterface::class, function ($app) {
+            return $app->get(ManagerRegistry::class)->getManager('default');
         });
     }
 

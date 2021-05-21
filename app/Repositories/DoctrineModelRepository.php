@@ -13,24 +13,15 @@ class DoctrineModelRepository implements IModelRepository
     /** @var EntityManagerInterface */
     private $em;
 
-    /** @var IBrandRepository */
-    private $brandRepository;
-
     public function __construct(
-        EntityManagerInterface $em,
-        IBrandRepository $brandRepository
+        EntityManagerInterface $em
     ) {
         $this->em = $em;
-        $this->brandRepository = $brandRepository;
     }
 
     public function addOne(
-        Model $model,
-        string $brandId
+        Model $model
     ) {
-        $brand = $this->brandRepository->getOneById($brandId);
-
-        $model->setBrand($brand);
         $this->em->persist($model);
         $this->em->flush();
     }

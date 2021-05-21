@@ -9,8 +9,7 @@ use Doctrine\Common\Collections\Collection;
 interface IModelRepository
 {
     public function addOne(
-        Model $model,
-        string $brandId
+        Model $model
     );
 
     /**
