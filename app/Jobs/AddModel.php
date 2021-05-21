@@ -2,9 +2,9 @@
 
 namespace App\Jobs;
 
-use App\Commands\AddBrandCommand;
-use App\Domain\Entities\Brand;
-use App\Repositories\IBrandRepository;
+use App\Commands\AddModelCommand;
+use App\Domain\Entities\Model;
+use App\Repositories\IModelRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -13,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 use Libs\Slug\Slug;
 use Ramsey\Uuid\Uuid;
 
-class AddBrand implements ShouldQueue
+class AddModel implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
@@ -21,24 +21,26 @@ class AddBrand implements ShouldQueue
     use SerializesModels;
     use Slug;
 
-    /** @var AddBrandCommand */
+    /** @var AddModelCommand */
     private $command;
 
-    public function __construct(AddBrandCommand $command)
+    public function __construct(AddModelCommand $command)
     {
         $this->command = $command;
     }
 
-    public function handle(IBrandRepository $brandRepository): void
-    {
-        $brand = new Brand(
+    public function handle(
+        IModelRepository $modelRepository
+    ): void {
+        $model = new Model(
             Uuid::fromString($this->command->getId()),
             $this->command->getName(),
             $this->slug($this->command->getName())
         );
 
-        $brandRepository->addOne(
-            $brand
+        $modelRepository->addOne(
+            $model,
+            $this->command->getBrandId()
         );
     }
 }

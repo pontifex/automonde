@@ -53,8 +53,8 @@ class DoctrineBrandRepository implements IBrandRepository
         $q = $this->em->createQueryBuilder()
             ->select('count(b.id)')
             ->from(Brand::class, 'b')
-            ->where('b.slug = :brandName')
-            ->setParameter('brandName', $slug)
+            ->where('b.slug = :brandSlug')
+            ->setParameter('brandSlug', $slug)
             ->getQuery();
 
         return ((int) $q->getSingleScalarResult() === 0);

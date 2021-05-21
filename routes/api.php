@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Commands\AddBrandController;
+use App\Http\Controllers\Commands\AddModelController;
 use App\Http\Controllers\Queries\ListBrandsController;
 use App\Http\Controllers\Queries\ShowBrandController;
 use Illuminate\Http\Request;
@@ -21,23 +22,38 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/brands',
+// brands
+
+Route::post(
+    '/brands',
     [
         AddBrandController::class,
         'index'
     ]
 );
 
-Route::get('/brands/{id}',
+Route::get(
+    '/brands/{id}',
     [
         ShowBrandController::class,
         'index'
     ]
 );
 
-Route::get('/brands',
+Route::get(
+    '/brands',
     [
         ListBrandsController::class,
+        'index'
+    ]
+);
+
+// models
+
+Route::post(
+    '/models',
+    [
+        AddModelController::class,
         'index'
     ]
 );

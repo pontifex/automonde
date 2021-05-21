@@ -2,7 +2,6 @@
 
 namespace App\Domain\Entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -10,9 +9,9 @@ use Ramsey\Uuid\Doctrine\UuidGenerator;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="brands")
+ * @ORM\Table(name="models")
  */
-class Brand implements IHydrateable, ISerializable
+class Model implements IHydrateable, ISerializable
 {
     /**
      * @var UuidInterface
@@ -34,9 +33,10 @@ class Brand implements IHydrateable, ISerializable
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity="Model", mappedBy="brand")
+     * @ORM\ManyToOne(targetEntity="Brand", inversedBy="models")
+     * @ORM\JoinColumn(name="brand_id", referencedColumnName="id")
      */
-    private $models;
+    private $brand;
 
     public function __construct(
         UuidInterface $id,
@@ -46,8 +46,6 @@ class Brand implements IHydrateable, ISerializable
         $this->id = $id;
         $this->name = $name;
         $this->slug = $slug;
-
-        $this->models = new ArrayCollection();
     }
 
     public function getId(): string
@@ -65,28 +63,14 @@ class Brand implements IHydrateable, ISerializable
         return $this->slug;
     }
 
-    public function getModels(): ArrayCollection
+    public function getBrand(): ?Brand
     {
-        return $this->models;
+        return $this->brand;
     }
 
-    public function addModel(Model $model): void
+    public function setBrand(?Brand $brand): void
     {
-        if (! $this->models->contains($model)) {
-            $this->models[] = $model;
-            $model->setBrand($this);
-        }
-    }
-
-    public function removeModel(Model $model): void
-    {
-        if ($this->models->contains($model)) {
-            $this->models->removeElement($model);
-
-            if ($model->getBrand() === $this) {
-                $model->setBrand(null);
-            }
-        }
+        $this->brand = $brand;
     }
 
     public static function getAllowedFields(): array
