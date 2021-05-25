@@ -18,14 +18,15 @@ class ValidationServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        parent::boot();
+
+        $this->modelRepository = $this->app->get(IModelRepository::class);
         $this->customValidations();
     }
 
     public function __construct(Application $app)
     {
         parent::__construct($app);
-
-        $this->modelRepository = $app->get(IModelRepository::class);
     }
 
     protected function customValidations(): void

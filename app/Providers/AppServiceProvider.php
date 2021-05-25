@@ -6,17 +6,26 @@ use App\CacheManagers\RedisBrandCacheManager;
 use App\CacheManagers\IBrandCacheManager;
 use App\Http\Controllers\Commands\AddBrandController;
 use App\Http\Controllers\Commands\AddModelController;
+use App\Http\Controllers\Commands\AddProductController;
 use App\Http\Controllers\Queries\ListBrandsController;
+use App\Http\Controllers\Queries\ListProductsController;
 use App\Http\Controllers\Queries\ShowBrandController;
+use App\Http\Controllers\Queries\ShowProductController;
 use App\Hydrators\Cache\BrandHydrator;
 use App\Repositories\CachedBrandRepository;
 use App\Repositories\DoctrineBrandRepository;
 use App\Repositories\DoctrineModelRepository;
+use App\Repositories\DoctrineProductRepository;
+use App\Repositories\ElasticSearchProductRepository;
 use App\Repositories\IBrandRepository;
 use App\Repositories\IModelRepository;
+use App\Repositories\IProductRepository;
+use App\SearchManagers\ElasticSearchProductSearchManager;
+use App\SearchManagers\IProductSearchManager;
 use App\Serializers\BrandSerializer;
 use App\Serializers\Cache\BrandSerializer as BrandCacheSerializer;
 use App\Serializers\ModelSerializer;
+use App\Serializers\ProductSerializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Illuminate\Support\ServiceProvider;
@@ -45,6 +54,12 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
+        $this->app->bind(AddProductController::class, function ($app) {
+            return new AddProductController(
+                $app->get(ProductSerializer::class)
+            );
+        });
+
         $this->app->bind(IBrandCacheManager::class, function ($app) {
             return new RedisBrandCacheManager(
                 $app->get(BrandHydrator::class),
@@ -65,15 +80,40 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
+        // entity manager has to be same instance over entire system to avoid eg. persistence issues
+        $this->app->singleton(EntityManagerInterface::class, function ($app) {
+            return $app->get(ManagerRegistry::class)->getManager('default');
+        });
+
         $this->app->bind(IModelRepository::class, function ($app) {
             return new DoctrineModelRepository(
                 $app->get(EntityManagerInterface::class)
             );
         });
 
-        // entity manager has to be same instance over entire system to avoid eg. persistence issues
-        $this->app->singleton(EntityManagerInterface::class, function ($app) {
-            return $app->get(ManagerRegistry::class)->getManager('default');
+        $this->app->bind(IProductSearchManager::class, function ($app) {
+            return new ElasticSearchProductSearchManager();
+        });
+
+        $this->app->bind(IProductRepository::class, function ($app) {
+            return new ElasticSearchProductRepository(
+                $app->get(DoctrineProductRepository::class),
+                $app->get(IProductSearchManager::class),
+            );
+        });
+
+        $this->app->bind(ListProductsController::class, function ($app) {
+            return new ListProductsController(
+                $app->get(IProductRepository::class),
+                $app->get(ProductSerializer::class)
+            );
+        });
+
+        $this->app->bind(ShowProductController::class, function ($app) {
+            return new ShowProductController(
+                $app->get(IProductRepository::class),
+                $app->get(ProductSerializer::class)
+            );
         });
     }
 

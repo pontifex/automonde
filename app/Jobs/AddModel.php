@@ -4,7 +4,8 @@ namespace App\Jobs;
 
 use App\Commands\AddModelCommand;
 use App\Domain\Entities\Model;
-use App\Repositories\IBrandRepository;
+use App\Events\ModelAdded;
+use App\Repositories\DoctrineBrandRepository;
 use App\Repositories\IModelRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -33,7 +34,7 @@ class AddModel implements ShouldQueue
 
     public function handle(
         IModelRepository $modelRepository,
-        IBrandRepository $brandRepository
+        DoctrineBrandRepository $brandRepository
     ): void {
         $model = new Model(
             Uuid::fromString($this->command->getId()),
@@ -50,5 +51,7 @@ class AddModel implements ShouldQueue
         $modelRepository->addOne(
             $model
         );
+
+        ModelAdded::dispatch($model);
     }
 }

@@ -15,8 +15,7 @@ trait Pagination
         array $pageArr,
         int $defaultNumber,
         int $defaultSize
-    ): array
-    {
+    ): array {
         $pageNumber = (isset($pageArr['number']))
             ? (int) $pageArr['number']
             : $defaultNumber;

@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Commands\AddBrandCommand;
 use App\Domain\Entities\Brand;
+use App\Events\BrandAdded;
 use App\Repositories\IBrandRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -40,5 +41,7 @@ class AddBrand implements ShouldQueue
         $brandRepository->addOne(
             $brand
         );
+
+        BrandAdded::dispatch($brand);
     }
 }
