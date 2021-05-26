@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Elasticsearch\Client;
-use Elasticsearch\ClientBuilder;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -14,32 +13,29 @@ class ElasticSearchMigration extends Command
     protected $signature = 'elasticsearch:index:create {index-name}';
     protected $description = 'Manage ElasticSearch indices';
 
-    public function handle(): void
-    {
-        $client = ClientBuilder::create()
-            ->setSSLVerification(false)
-            ->setHosts(
-                [
-                    sprintf(
-                        '%s:%d',
-                        env('ELASTICSEARCH_HOST'),
-                        env('ELASTICSEARCH_HOST_HTTP_PORT')
-                    )
-                ]
-            )->build();
+    private $client;
 
-        $this->deleteIndex($client);
-        $this->createIndex($client);
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+
+        parent::__construct();
     }
 
-    private function deleteIndex(Client $client)
+    public function handle(): void
+    {
+        $this->deleteIndex();
+        $this->createIndex();
+    }
+
+    private function deleteIndex()
     {
         $deleteParams = [
             'index' => $this->argument('index-name'),
         ];
 
         try {
-            $client->indices()->delete($deleteParams);
+            $this->client->indices()->delete($deleteParams);
 
             $this->comment(
                 sprintf(
@@ -53,7 +49,7 @@ class ElasticSearchMigration extends Command
         }
     }
 
-    private function createIndex(Client $client)
+    private function createIndex()
     {
         $indexFile = sprintf(
             '%s/%s.php',
@@ -69,7 +65,7 @@ class ElasticSearchMigration extends Command
         $indexParams = require($indexFile);
 
         try {
-            $client->indices()->create($indexParams);
+            $this->client->indices()->create($indexParams);
             $this->comment(
                 sprintf(
                     'Index %s created',

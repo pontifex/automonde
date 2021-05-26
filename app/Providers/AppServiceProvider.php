@@ -11,7 +11,9 @@ use App\Http\Controllers\Queries\ListBrandsController;
 use App\Http\Controllers\Queries\ListProductsController;
 use App\Http\Controllers\Queries\ShowBrandController;
 use App\Http\Controllers\Queries\ShowProductController;
+use App\Hydrators\ArrayProductHydrator;
 use App\Hydrators\Cache\BrandHydrator;
+use App\Hydrators\SearchProductHydrator;
 use App\Repositories\CachedBrandRepository;
 use App\Repositories\DoctrineBrandRepository;
 use App\Repositories\DoctrineModelRepository;
@@ -28,6 +30,8 @@ use App\Serializers\ModelSerializer;
 use App\Serializers\ProductSerializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -92,7 +96,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(IProductSearchManager::class, function ($app) {
-            return new ElasticSearchProductSearchManager();
+            return new ElasticSearchProductSearchManager(
+                $app->get(Client::class),
+                $app->get(ArrayProductHydrator::class),
+                $app->get(SearchProductHydrator::class),
+            );
         });
 
         $this->app->bind(IProductRepository::class, function ($app) {
@@ -114,6 +122,20 @@ class AppServiceProvider extends ServiceProvider
                 $app->get(IProductRepository::class),
                 $app->get(ProductSerializer::class)
             );
+        });
+
+        $this->app->bind(Client::class, function ($app) {
+            return ClientBuilder::create()
+                ->setSSLVerification(false)
+                ->setHosts(
+                    [
+                        sprintf(
+                            '%s:%d',
+                            env('ELASTICSEARCH_HOST'),
+                            env('ELASTICSEARCH_HOST_HTTP_PORT')
+                        )
+                    ]
+                )->build();
         });
     }
 

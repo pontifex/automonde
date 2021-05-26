@@ -19,7 +19,7 @@ return [
                 'price_amount' => [
                     'type' => 'integer',
                 ],
-                'mileage_amount' => [
+                'mileage_distance' => [
                     'type' => 'integer',
                 ]
             ]

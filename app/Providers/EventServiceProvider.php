@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Events\BrandAdded;
 use App\Events\ModelAdded;
 use App\Events\ProductAdded;
+use App\Listeners\AddProductToSearchManager;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -25,6 +26,7 @@ class EventServiceProvider extends ServiceProvider
         ModelAdded::class => [
         ],
         ProductAdded::class => [
+            AddProductToSearchManager::class,
         ],
     ];
 

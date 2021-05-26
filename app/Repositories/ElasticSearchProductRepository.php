@@ -28,7 +28,6 @@ class ElasticSearchProductRepository implements IProductRepository
         Product $product
     ) {
         $this->decoratedRepository->addOne($product);
-        $this->productSearchManager->addOne($product);
     }
 
     /**
