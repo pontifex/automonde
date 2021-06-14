@@ -10,19 +10,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class AddProduct extends FormRequest
 {
-    /** @var ExistingModel */
-    private $existingModel;
-
-    /** @var ValidCurrency */
-    private $validCurrency;
-
-    /** @var ValidMileageUnit */
-    private $validMileageUnit;
-
     public function __construct(
-        ExistingModel $existingModel,
-        ValidCurrency $validCurrency,
-        ValidMileageUnit $validMileageUnit,
+        private ExistingModel $existingModel,
+        private ValidCurrency $validCurrency,
+        private ValidMileageUnit $validMileageUnit,
         array $query = [],
         array $request = [],
         array $attributes = [],
@@ -32,10 +23,6 @@ class AddProduct extends FormRequest
         $content = null
     ) {
         parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
-
-        $this->existingModel = $existingModel;
-        $this->validCurrency = $validCurrency;
-        $this->validMileageUnit = $validMileageUnit;
     }
 
     public function rules(): array

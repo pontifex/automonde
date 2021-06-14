@@ -18,13 +18,9 @@ class AddModelController extends BaseController
     use DispatchesJobs;
     use Serialize;
 
-    /** @var ISerializer */
-    private $serializer;
-
-    public function __construct(ISerializer $serializer)
-    {
-        $this->serializer = $serializer;
-    }
+    public function __construct(
+        private ISerializer $serializer
+    ) {}
 
     public function index(AddModelRequest $request): Response
     {

@@ -31,19 +31,10 @@ class ListBrandsController extends BaseController
     private const DEFAULT_PAGE_NUMBER = 1;
     private const DEFAULT_SIZE = 15;
 
-    /** @var IBrandRepository */
-    private $brandRepository;
-
-    /** @var ISerializer */
-    private $serializer;
-
     public function __construct(
-        IBrandRepository $brandRepository,
-        ISerializer $serializer
-    ) {
-        $this->brandRepository = $brandRepository;
-        $this->serializer = $serializer;
-    }
+        private IBrandRepository $brandRepository,
+        private ISerializer $serializer
+    ) {}
 
     /**
      * @throws IncorrectFieldException

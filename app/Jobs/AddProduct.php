@@ -23,13 +23,9 @@ class AddProduct implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    /** @var AddProductCommand */
-    private $command;
-
-    public function __construct(AddProductCommand $command)
-    {
-        $this->command = $command;
-    }
+    public function __construct(
+        private AddProductCommand $command
+    ) {}
 
     public function handle(
         DoctrineProductRepository $productRepository,

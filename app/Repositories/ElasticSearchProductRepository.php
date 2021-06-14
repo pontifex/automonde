@@ -10,19 +10,10 @@ use Doctrine\Common\Collections\Collection;
 
 class ElasticSearchProductRepository implements IProductRepository
 {
-    /** @var IProductRepository */
-    private $decoratedRepository;
-
-    /** @var IProductSearchManager */
-    private $productSearchManager;
-
     public function __construct(
-        IProductRepository $decoratedRepository,
-        IProductSearchManager $productSearchManager
-    ) {
-        $this->decoratedRepository = $decoratedRepository;
-        $this->productSearchManager = $productSearchManager;
-    }
+        private IProductRepository $decoratedRepository,
+        private IProductSearchManager $productSearchManager
+    ) { }
 
     public function addOne(
         Product $product

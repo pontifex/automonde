@@ -22,13 +22,9 @@ class AddBrand implements ShouldQueue
     use SerializesModels;
     use Slug;
 
-    /** @var AddBrandCommand */
-    private $command;
-
-    public function __construct(AddBrandCommand $command)
-    {
-        $this->command = $command;
-    }
+    public function __construct(
+        private AddBrandCommand $command
+    ) {}
 
     public function handle(IBrandRepository $brandRepository): void
     {

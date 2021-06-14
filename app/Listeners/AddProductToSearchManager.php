@@ -8,17 +8,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AddProductToSearchManager implements ShouldQueue
 {
-    public $connection = 'redis';
+    public string $connection = 'redis';
 
-    public $queue = 'default';
-
-    private $productSearchManager;
+    public string $queue = 'default';
 
     public function __construct(
-        IProductSearchManager $productSearchManager
-    ) {
-        $this->productSearchManager = $productSearchManager;
-    }
+        private IProductSearchManager $productSearchManager
+    ) { }
 
     public function handle(ProductAdded $event)
     {

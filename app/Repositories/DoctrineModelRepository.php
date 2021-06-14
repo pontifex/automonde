@@ -10,14 +10,9 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class DoctrineModelRepository implements IModelRepository
 {
-    /** @var EntityManagerInterface */
-    private $em;
-
     public function __construct(
-        EntityManagerInterface $em
-    ) {
-        $this->em = $em;
-    }
+        private EntityManagerInterface $em
+    ) { }
 
     public function addOne(
         Model $model

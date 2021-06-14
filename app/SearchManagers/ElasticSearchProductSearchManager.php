@@ -13,24 +13,11 @@ class ElasticSearchProductSearchManager implements IProductSearchManager
 {
     use Hydrate;
 
-    /** @var Client */
-    private $client;
-
-    /** @var ArrayProductHydrator */
-    private $arrayProductHydrator;
-
-    /** @var SearchProductHydrator */
-    private $searchProductHydrator;
-
     public function __construct(
-        Client $client,
-        ArrayProductHydrator $arrayProductHydrator,
-        SearchProductHydrator $searchProductHydrator
-    ) {
-        $this->client = $client;
-        $this->arrayProductHydrator = $arrayProductHydrator;
-        $this->searchProductHydrator = $searchProductHydrator;
-    }
+        private Client $client,
+        private ArrayProductHydrator $arrayProductHydrator,
+        private SearchProductHydrator $searchProductHydrator
+    ) { }
 
     public function addOne(Product $product)
     {

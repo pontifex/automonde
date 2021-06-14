@@ -8,11 +8,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class AddBrand extends FormRequest
 {
-    /** @var UniqueBrand */
-    private $uniqueBrand;
-
     public function __construct(
-        UniqueBrand $uniqueBrand,
+        private UniqueBrand $uniqueBrand,
         array $query = [],
         array $request = [],
         array $attributes = [],
@@ -21,7 +18,6 @@ class AddBrand extends FormRequest
         array $server = [],
         $content = null
     ) {
-        $this->uniqueBrand = $uniqueBrand;
         parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
     }
 

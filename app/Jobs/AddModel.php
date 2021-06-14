@@ -23,14 +23,9 @@ class AddModel implements ShouldQueue
     use SerializesModels;
     use Slug;
 
-    /** @var AddModelCommand */
-    private $command;
-
     public function __construct(
-        AddModelCommand $command
-    ) {
-        $this->command = $command;
-    }
+        private AddModelCommand $command
+    ) {}
 
     public function handle(
         IModelRepository $modelRepository,

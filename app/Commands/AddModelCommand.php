@@ -4,24 +4,11 @@ namespace App\Commands;
 
 class AddModelCommand
 {
-    /** @var string */
-    private $id;
-
-    /** @var string */
-    private $name;
-
-    /** @var string */
-    private $brandId;
-
     public function __construct(
-        string $id,
-        string $name,
-        string $brandId
-    ) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->brandId = $brandId;
-    }
+        private string $id,
+        private string $name,
+        private string $brandId
+    ) {}
 
     public function getId(): string
     {

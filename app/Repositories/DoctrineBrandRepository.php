@@ -10,13 +10,9 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class DoctrineBrandRepository implements IBrandRepository
 {
-    /** @var EntityManagerInterface */
-    private $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
+    public function __construct(
+        private EntityManagerInterface $em
+    ) { }
 
     public function addOne(
         Brand $brand

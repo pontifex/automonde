@@ -21,16 +21,10 @@ class RedisBrandCacheManager implements IBrandCacheManager
     private const CACHE_KEY_PATTERN_BRAND = '%s:%s';
     private const TIMEOUT = 360;
 
-    private $hydrator;
-    private $serializer;
-
     public function __construct(
-        IHydrator $hydrator,
-        ISerializer $serializer
+        private IHydrator $hydrator,
+        private ISerializer $serializer
     ) {
-        $this->hydrator = $hydrator;
-        $this->serializer = $serializer;
-
         Redis::connection();
     }
 

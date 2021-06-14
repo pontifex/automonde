@@ -9,13 +9,9 @@ final class BrandAdded
 {
     use Dispatchable;
 
-    private $brand;
-
     public function __construct(
-        Brand $brand
-    ) {
-        $this->brand = $brand;
-    }
+        private Brand $brand
+    ) {}
 
     public function getBrand(): Brand
     {

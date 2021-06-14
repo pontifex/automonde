@@ -8,11 +8,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class AddModel extends FormRequest
 {
-    /** @var ExistingBrand */
-    private $existingBrand;
-
     public function __construct(
-        ExistingBrand $existingBrand,
+        private ExistingBrand $existingBrand,
         array $query = [],
         array $request = [],
         array $attributes = [],
@@ -21,7 +18,6 @@ class AddModel extends FormRequest
         array $server = [],
         $content = null
     ) {
-        $this->existingBrand = $existingBrand;
         parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
     }
 

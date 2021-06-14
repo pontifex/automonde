@@ -4,19 +4,10 @@ namespace App\Commands;
 
 class AddBrandCommand
 {
-    /** @var string */
-    private $id;
-
-    /** @var string */
-    private $name;
-
     public function __construct(
-        string $id,
-        string $name
-    ) {
-        $this->id = $id;
-        $this->name = $name;
-    }
+        private string $id,
+        private string $name
+    ) {}
 
     public function getId(): string
     {

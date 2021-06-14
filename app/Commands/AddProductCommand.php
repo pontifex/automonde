@@ -4,44 +4,15 @@ namespace App\Commands;
 
 class AddProductCommand
 {
-    /** @var string */
-    private $id;
-
-    /** @var string */
-    private $description;
-
-    /** @var int */
-    private $mileageDistance;
-
-    /** @var string */
-    private $mileageUnit;
-
-    /** @var int */
-    private $priceAmount;
-
-    /** @var string */
-    private $priceCurrency;
-
-    /** @var string */
-    private $modelId;
-
     public function __construct(
-        string $id,
-        string $description,
-        int $mileageDistance,
-        string $mileageUnit,
-        int $priceAmount,
-        string $priceCurrency,
-        string $modelId
-    ) {
-        $this->id = $id;
-        $this->description = $description;
-        $this->mileageDistance = $mileageDistance;
-        $this->mileageUnit = $mileageUnit;
-        $this->priceAmount = $priceAmount;
-        $this->priceCurrency = $priceCurrency;
-        $this->modelId = $modelId;
-    }
+        private string $id,
+        private string $description,
+        private int $mileageDistance,
+        private string $mileageUnit,
+        private int $priceAmount,
+        private string $priceCurrency,
+        private string $modelId
+    ) {}
 
     public function getId(): string
     {

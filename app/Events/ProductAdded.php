@@ -9,13 +9,9 @@ final class ProductAdded
 {
     use Dispatchable;
 
-    private $product;
-
     public function __construct(
-        Product $product
-    ) {
-        $this->product = $product;
-    }
+        private Product $product
+    ) {}
 
     public function getProduct(): Product
     {

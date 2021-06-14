@@ -10,14 +10,9 @@ use Ramsey\Uuid\Uuid;
 
 class ExistingBrand implements Rule
 {
-    /** @var IBrandRepository */
-    private $brandRepository;
-
     public function __construct(
-        IBrandRepository $brandRepository
-    ) {
-        $this->brandRepository = $brandRepository;
-    }
+        private IBrandRepository $brandRepository
+    ) { }
 
     public function passes($attribute, $value): bool
     {

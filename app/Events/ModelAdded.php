@@ -9,13 +9,9 @@ final class ModelAdded
 {
     use Dispatchable;
 
-    private $model;
-
     public function __construct(
-        Model $model
-    ) {
-        $this->model = $model;
-    }
+        private Model $model
+    ) {}
 
     public function getModel(): Model
     {

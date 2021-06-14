@@ -13,12 +13,8 @@ class ElasticSearchIndexRecreate extends Command
     protected $signature = 'elasticsearch:index:recreate {index-name}';
     protected $description = 'Manage ElasticSearch indices';
 
-    private $client;
-
-    public function __construct(Client $client)
+    public function __construct(private Client $client)
     {
-        $this->client = $client;
-
         parent::__construct();
     }
 

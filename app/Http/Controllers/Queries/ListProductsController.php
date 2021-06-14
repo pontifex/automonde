@@ -31,19 +31,10 @@ class ListProductsController extends BaseController
     private const DEFAULT_PAGE_NUMBER = 1;
     private const DEFAULT_SIZE = 15;
 
-    /** @var IProductRepository */
-    private $productRepository;
-
-    /** @var ISerializer */
-    private $serializer;
-
     public function __construct(
-        IProductRepository $productRepository,
-        ISerializer $serializer
-    ) {
-        $this->productRepository = $productRepository;
-        $this->serializer = $serializer;
-    }
+        private IProductRepository $productRepository,
+        private ISerializer $serializer
+    ) {}
 
     /**
      * @throws IncorrectFieldException

@@ -10,14 +10,9 @@ use Ramsey\Uuid\Uuid;
 
 class ExistingModel implements Rule
 {
-    /** @var IModelRepository */
-    private $modelRepository;
-
     public function __construct(
-        IModelRepository $modelRepository
-    ) {
-        $this->modelRepository = $modelRepository;
-    }
+        private IModelRepository $modelRepository
+    ) { }
 
     public function passes($attribute, $value): bool
     {

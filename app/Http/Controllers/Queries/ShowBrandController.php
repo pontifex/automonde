@@ -7,6 +7,7 @@ use App\Exceptions\ResourceNotFoundException;
 use App\Repositories\IBrandRepository;
 use App\Serializers\ISerializer;
 use App\Serializers\Serialize;
+use Exception;
 use Illuminate\Routing\Controller as BaseController;
 use Libs\Api\Fields\Exceptions\IncorrectFieldException;
 use Libs\Api\Fields\Exceptions\NoFieldsException;
@@ -16,7 +17,6 @@ use Libs\Debug\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Exception;
 
 class ShowBrandController extends BaseController
 {
@@ -24,19 +24,10 @@ class ShowBrandController extends BaseController
     use Fields;
     use Serialize;
 
-    /** @var IBrandRepository */
-    private $brandRepository;
-
-    /** @var ISerializer */
-    private $serializer;
-
     public function __construct(
-        IBrandRepository $brandRepository,
-        ISerializer $serializer
-    ) {
-        $this->brandRepository = $brandRepository;
-        $this->serializer = $serializer;
-    }
+        private IBrandRepository $brandRepository,
+        private ISerializer $serializer
+    ) {}
 
     /**
      * @throws IncorrectFieldException

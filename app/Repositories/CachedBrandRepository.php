@@ -10,19 +10,10 @@ use Doctrine\Common\Collections\Collection;
 
 class CachedBrandRepository implements IBrandRepository
 {
-    /** @var IBrandRepository */
-    private $decoratedRepository;
-
-    /** @var IBrandCacheManager */
-    private $brandCacheManager;
-
     public function __construct(
-        IBrandRepository $decoratedRepository,
-        IBrandCacheManager $brandCacheManager
-    ) {
-        $this->decoratedRepository = $decoratedRepository;
-        $this->brandCacheManager = $brandCacheManager;
-    }
+        private IBrandRepository $decoratedRepository,
+        private IBrandCacheManager $brandCacheManager
+    ) { }
 
     public function addOne(
         Brand $brand

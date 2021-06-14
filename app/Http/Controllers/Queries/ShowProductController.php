@@ -24,19 +24,10 @@ class ShowProductController extends BaseController
     use Fields;
     use Serialize;
 
-    /** @var IProductRepository */
-    private $productRepository;
-
-    /** @var ISerializer */
-    private $serializer;
-
     public function __construct(
-        IProductRepository $productRepository,
-        ISerializer $serializer
-    ) {
-        $this->productRepository = $productRepository;
-        $this->serializer = $serializer;
-    }
+        private IProductRepository $productRepository,
+        private ISerializer $serializer
+    ) {}
 
     /**
      * @throws IncorrectFieldException
