@@ -18,13 +18,13 @@ class ExistingModel implements Rule
     {
         try {
             Uuid::fromString($value);
-        } catch (InvalidUuidStringException $e) {
+        } catch (InvalidUuidStringException) {
             return false;
         }
 
         try {
             $this->modelRepository->getOneById($value);
-        } catch (ResourceNotFoundException $e) {
+        } catch (ResourceNotFoundException) {
             return false;
         }
 

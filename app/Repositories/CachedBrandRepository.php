@@ -28,7 +28,7 @@ class CachedBrandRepository implements IBrandRepository
     {
         try {
             $brand = $this->brandCacheManager->getOne($id);
-        } catch (NotExistException $e) {
+        } catch (NotExistException) {
             $brand = $this->decoratedRepository->getOneById($id);
             $this->brandCacheManager->add($brand);
         }

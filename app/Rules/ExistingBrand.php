@@ -18,13 +18,13 @@ class ExistingBrand implements Rule
     {
         try {
             Uuid::fromString($value);
-        } catch (InvalidUuidStringException $e) {
+        } catch (InvalidUuidStringException) {
             return false;
         }
 
         try {
             $this->brandRepository->getOneById($value);
-        } catch (ResourceNotFoundException $e) {
+        } catch (ResourceNotFoundException) {
             return false;
         }
 
