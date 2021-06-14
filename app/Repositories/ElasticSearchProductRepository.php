@@ -39,7 +39,7 @@ class ElasticSearchProductRepository implements IProductRepository
     public function list(int $pageNumber, int $pageSize): Collection
     {
         $productsArr = $this->productSearchManager
-            ->list([], null, $pageSize, ($pageNumber - 1) * $pageSize);
+            ->list(limit: $pageSize, offset: ($pageNumber - 1) * $pageSize);
 
         return new ArrayCollection($productsArr);
     }
