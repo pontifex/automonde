@@ -6,11 +6,11 @@ use Elasticsearch\Client;
 use Exception;
 use Illuminate\Console\Command;
 
-class ElasticSearchMigration extends Command
+class ElasticSearchIndexRecreate extends Command
 {
     private const INDICES_DIR = 'elasticsearch/indices';
 
-    protected $signature = 'elasticsearch:index:create {index-name}';
+    protected $signature = 'elasticsearch:index:recreate {index-name}';
     protected $description = 'Manage ElasticSearch indices';
 
     private $client;
