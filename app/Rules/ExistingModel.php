@@ -14,7 +14,7 @@ class ExistingModel implements Rule
         private IModelRepository $modelRepository
     ) { }
 
-    public function passes($attribute, $value): bool
+    public function passes($attribute, mixed $value): bool
     {
         try {
             Uuid::fromString($value);

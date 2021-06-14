@@ -14,7 +14,7 @@ class UniqueBrand implements Rule
         private IBrandRepository $brandRepository
     ) { }
 
-    public function passes($attribute, $value): bool
+    public function passes($attribute, mixed $value): bool
     {
         return $this->brandRepository->isUniqueBySlug($this->slug($value));
     }

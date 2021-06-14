@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Rule;
 
 class ValidCurrency implements Rule
 {
-    public function passes($attribute, $value): bool
+    public function passes($attribute, mixed $value): bool
     {
         return in_array($value, Price::$validCurrencies);
     }
