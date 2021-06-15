@@ -39,16 +39,19 @@ class ElasticSearchBulkProductsIndexer implements IIndexer
             foreach ($collection as $product) {
                 /** @var Product $product */
 
-                $body = $this->serialize(
+                $serialized = $this->serialize(
                     $this->productBulkIndexingSerializer,
                     $product,
                     []
-                );
+                )[ProductBulkIndexingSerializer::getType()];
+
+                $body = array_merge($body, $serialized);
 
                 $total++;
             }
 
-            $params['body'] = $body[ProductBulkIndexingSerializer::getType()];
+            $params['body'] = $body;
+
             $this->client->bulk($params);
 
             $collection = $this->doctrineProductRepository->list(
