@@ -17,7 +17,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        ResourceNotFoundException::class,
     ];
 
     /**

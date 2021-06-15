@@ -7,6 +7,7 @@ use App\Exceptions\ResourceNotFoundException;
 use App\SearchManagers\IProductSearchManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
 
 class ElasticSearchProductRepository implements IProductRepository
 {
@@ -26,10 +27,10 @@ class ElasticSearchProductRepository implements IProductRepository
      */
     public function getOneById(string $id): Product
     {
-        /** @var Product|null $product */
-        $product = $this->productSearchManager->getOneById($id);
-
-        if (null === $product) {
+        try {
+            /** @var Product|null $product */
+            $product = $this->productSearchManager->getOneById($id);
+        } catch (Missing404Exception) {
             throw new ResourceNotFoundException();
         }
 
