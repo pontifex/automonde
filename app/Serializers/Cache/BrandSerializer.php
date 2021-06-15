@@ -20,7 +20,7 @@ class BrandSerializer implements ISerializer
     {
         if (! $serializable instanceof Brand) {
             throw new WrongTypeException(
-                sprintf('Wrong type provided %s but expected %s', get_class($serializable), Brand::class)
+                sprintf('Wrong type provided %s but expected %s', $serializable::class, Brand::class)
             );
         }
 

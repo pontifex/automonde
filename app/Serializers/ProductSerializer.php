@@ -19,7 +19,7 @@ class ProductSerializer implements ISerializer
     {
         if (! $serializable instanceof Product) {
             throw new WrongTypeException(
-                sprintf('Wrong type provided %s but expected %s', get_class($serializable), Product::class)
+                sprintf('Wrong type provided %s but expected %s', $serializable::class, Product::class)
             );
         }
 

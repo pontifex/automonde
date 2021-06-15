@@ -19,7 +19,7 @@ class ModelSerializer implements ISerializer
     {
         if (! $serializable instanceof Model) {
             throw new WrongTypeException(
-                sprintf('Wrong type provided %s but expected %s', get_class($serializable), Model::class)
+                sprintf('Wrong type provided %s but expected %s', $serializable::class, Model::class)
             );
         }
 
