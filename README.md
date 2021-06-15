@@ -9,6 +9,7 @@ cp .env.example .env
 - ```docker exec -it automonde_workspace_1 bash```
 - ```composer install```
 - ```php artisan doctrine:generate:proxies```
+- ```php artisan elasticsearch:index:recreate products```
 - ```php artisan horizon```
 
 ### Horizon
@@ -21,3 +22,12 @@ Indexing products ```php artisan elasticsearch:indexing:products```
 
 ### Unit tests
 ```phpunit```
+
+### Endpoints
+- ```POST /brands``` Add brand
+- ```GET /brands/{id}``` Show brand
+- ```GET /brands``` List brands
+- ```POST /models``` Add model
+- ```POST /products``` Add product
+- ```GET /products/{id}``` Show product
+- ```GET /products``` List products
