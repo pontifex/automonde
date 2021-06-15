@@ -11,7 +11,7 @@ class ElasticSearchIndexRecreate extends Command
     private const INDICES_DIR = 'elasticsearch/indices';
 
     protected $signature = 'elasticsearch:index:recreate {index-name}';
-    protected $description = 'Manage ElasticSearch indices';
+    protected $description = 'Recreate ElasticSearch index';
 
     public function __construct(private Client $client)
     {

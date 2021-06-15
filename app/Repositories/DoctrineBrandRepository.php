@@ -39,7 +39,7 @@ class DoctrineBrandRepository implements IBrandRepository
     public function list(int $pageNumber, int $pageSize): Collection
     {
         $brandsArr = $this->em->getRepository(Brand::class)
-            ->findBy([], null, $pageSize, ($pageNumber - 1) * $pageSize);
+            ->findBy(criteria: [], limit: $pageSize, offset: ($pageNumber - 1) * $pageSize);
 
         return new ArrayCollection($brandsArr);
     }

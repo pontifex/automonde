@@ -6,32 +6,34 @@ use App\Domain\Entities\Product;
 use App\Hydrators\ArrayProductHydrator;
 use App\Hydrators\Hydrate;
 use App\Hydrators\SearchProductHydrator;
+use App\Serializers\Search\ProductIndexingSerializer;
+use App\Serializers\Serialize;
 use Elasticsearch\Client;
+use Libs\Debug\Debug;
 use stdClass;
 
 class ElasticSearchProductSearchManager implements IProductSearchManager
 {
     use Hydrate;
+    use Serialize;
+    use Debug;
 
     public function __construct(
         private Client $client,
         private ArrayProductHydrator $arrayProductHydrator,
-        private SearchProductHydrator $searchProductHydrator
+        private SearchProductHydrator $searchProductHydrator,
+        private ProductIndexingSerializer $productIndexingSerializer
     ) { }
 
     public function addOne(Product $product)
     {
-        $params = [
-            'index' => 'products',
-            'id'    => $product->getId(),
-            'body'  => [
-                'description' => $product->getDescription(),
-                'price_amount' => $product->getPrice()->getAmount(),
-                'mileage_distance' => $product->getMileage()->getDistance(),
-            ],
-        ];
+        $params = $this->serialize(
+            $this->productIndexingSerializer,
+            $product,
+            []
+        );
 
-        $this->client->index($params);
+        $this->client->index($params[ProductIndexingSerializer::getType()]);
     }
 
     public function getOneById(string $id): Product

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\CacheManagers\RedisBrandCacheManager;
 use App\CacheManagers\IBrandCacheManager;
+use App\Console\Commands\ElasticSearchProductsIndexing;
 use App\Http\Controllers\Commands\AddBrandController;
 use App\Http\Controllers\Commands\AddModelController;
 use App\Http\Controllers\Commands\AddProductController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Queries\ShowProductController;
 use App\Hydrators\ArrayProductHydrator;
 use App\Hydrators\Cache\BrandHydrator;
 use App\Hydrators\SearchProductHydrator;
+use App\Indexers\ElasticSearchBulkProductsIndexer;
 use App\Repositories\CachedBrandRepository;
 use App\Repositories\DoctrineBrandRepository;
 use App\Repositories\DoctrineModelRepository;
@@ -27,6 +29,7 @@ use App\SearchManagers\IProductSearchManager;
 use App\Serializers\BrandSerializer;
 use App\Serializers\Cache\BrandSerializer as BrandCacheSerializer;
 use App\Serializers\ModelSerializer;
+use App\Serializers\Search\ProductIndexingSerializer;
 use App\Serializers\ProductSerializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -100,6 +103,7 @@ class AppServiceProvider extends ServiceProvider
                 $app->get(Client::class),
                 $app->get(ArrayProductHydrator::class),
                 $app->get(SearchProductHydrator::class),
+                $app->get(ProductIndexingSerializer::class),
             );
         });
 
@@ -136,6 +140,12 @@ class AppServiceProvider extends ServiceProvider
                         )
                     ]
                 )->build();
+        });
+
+        $this->app->bind(ElasticSearchProductsIndexing::class, function ($app) {
+            return new ElasticSearchProductsIndexing(
+                $app->get(ElasticSearchBulkProductsIndexer::class)
+            );
         });
     }
 

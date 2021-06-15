@@ -17,5 +17,7 @@ Horizon is available on http://localhost/horizon
 ### Elasticsearch
 Recreate index for products: ```php artisan elasticsearch:index:recreate products```
 
+Indexing products ```php artisan elasticsearch:indexing:products```
+
 ### Unit tests
 ```phpunit```

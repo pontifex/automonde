@@ -39,7 +39,7 @@ class DoctrineProductRepository implements IProductRepository
     public function list(int $pageNumber, int $pageSize): Collection
     {
         $productsArr = $this->em->getRepository(Product::class)
-            ->findBy([], null, $pageSize, ($pageNumber - 1) * $pageSize);
+            ->findBy(criteria: [], limit: $pageSize, offset: ($pageNumber - 1) * $pageSize);
 
         return new ArrayCollection($productsArr);
     }

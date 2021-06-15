@@ -39,7 +39,7 @@ class DoctrineModelRepository implements IModelRepository
     public function list(int $pageNumber, int $pageSize): Collection
     {
         $modelsArr = $this->em->getRepository(Model::class)
-            ->findBy([], null, $pageSize, ($pageNumber - 1) * $pageSize);
+            ->findBy(criteria: [], limit: $pageSize, offset: ($pageNumber - 1) * $pageSize);
 
         return new ArrayCollection($modelsArr);
     }
