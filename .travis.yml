@@ -1,4 +1,5 @@
-dist: trusty
+os: linux
+dist: bionic
 sudo: required
 group: edge
 
@@ -14,9 +15,9 @@ branches:
   only:
     - master
 
-#before_script:
-#  - chmod +x bin/travis_ci_before_script.sh
-#  - ./bin/travis_ci_before_script.sh
+before_script:
+  - chmod +x bin/travis_ci_before_script.sh
+  - ./bin/travis_ci_before_script.sh
 
 script:
   - vendor/bin/phpunit

@@ -2,10 +2,10 @@
 
 set -e
 
-sudo service mysql stop
+#sudo service mysql stop
 
-cd laradock;
-docker-compose up -d nginx mysql redis elasticsearch
+#cd laradock;
+#docker-compose up -d nginx mysql redis elasticsearch
+#cd ..
 
-cd ..
 composer install;
