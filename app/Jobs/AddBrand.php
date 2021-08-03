@@ -24,7 +24,8 @@ class AddBrand implements ShouldQueue
 
     public function __construct(
         private AddBrandCommand $command
-    ) {}
+    ) {
+    }
 
     public function handle(IBrandRepository $brandRepository): void
     {

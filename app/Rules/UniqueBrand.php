@@ -12,7 +12,8 @@ class UniqueBrand implements Rule
 
     public function __construct(
         private IBrandRepository $brandRepository
-    ) { }
+    ) {
+    }
 
     public function passes($attribute, mixed $value): bool
     {

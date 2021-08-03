@@ -12,7 +12,8 @@ class AddProductCommand
         private int $priceAmount,
         private string $priceCurrency,
         private string $modelId
-    ) {}
+    ) {
+    }
 
     public function getId(): string
     {

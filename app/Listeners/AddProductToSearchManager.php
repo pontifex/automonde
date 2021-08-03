@@ -14,7 +14,8 @@ class AddProductToSearchManager implements ShouldQueue
 
     public function __construct(
         private IProductSearchManager $productSearchManager
-    ) { }
+    ) {
+    }
 
     public function handle(ProductAdded $event)
     {

@@ -12,7 +12,8 @@ class DoctrineModelRepository implements IModelRepository
 {
     public function __construct(
         private EntityManagerInterface $em
-    ) { }
+    ) {
+    }
 
     public function addOne(
         Model $model

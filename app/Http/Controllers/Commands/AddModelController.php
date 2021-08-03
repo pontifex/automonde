@@ -20,7 +20,8 @@ class AddModelController extends BaseController
 
     public function __construct(
         private ISerializer $serializer
-    ) {}
+    ) {
+    }
 
     public function index(AddModelRequest $request): Response
     {

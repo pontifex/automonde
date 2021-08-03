@@ -25,7 +25,8 @@ class AddProduct implements ShouldQueue
 
     public function __construct(
         private AddProductCommand $command
-    ) {}
+    ) {
+    }
 
     public function handle(
         DoctrineProductRepository $productRepository,

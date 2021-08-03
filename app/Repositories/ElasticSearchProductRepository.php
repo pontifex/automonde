@@ -14,7 +14,8 @@ class ElasticSearchProductRepository implements IProductRepository
     public function __construct(
         private IProductRepository $decoratedRepository,
         private IProductSearchManager $productSearchManager
-    ) { }
+    ) {
+    }
 
     public function addOne(
         Product $product

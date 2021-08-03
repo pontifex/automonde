@@ -34,7 +34,8 @@ class ListProductsController extends BaseController
     public function __construct(
         private IProductRepository $productRepository,
         private ISerializer $serializer
-    ) {}
+    ) {
+    }
 
     /**
      * @throws IncorrectFieldException

@@ -25,7 +25,8 @@ class AddModel implements ShouldQueue
 
     public function __construct(
         private AddModelCommand $command
-    ) {}
+    ) {
+    }
 
     public function handle(
         IModelRepository $modelRepository,

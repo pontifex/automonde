@@ -12,7 +12,8 @@ class DoctrineBrandRepository implements IBrandRepository
 {
     public function __construct(
         private EntityManagerInterface $em
-    ) { }
+    ) {
+    }
 
     public function addOne(
         Brand $brand

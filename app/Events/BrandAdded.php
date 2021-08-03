@@ -11,7 +11,8 @@ final class BrandAdded
 
     public function __construct(
         private Brand $brand
-    ) {}
+    ) {
+    }
 
     public function getBrand(): Brand
     {

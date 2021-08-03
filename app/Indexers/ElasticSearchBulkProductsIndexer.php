@@ -10,16 +10,17 @@ use Elasticsearch\Client;
 
 class ElasticSearchBulkProductsIndexer implements IIndexer
 {
+    use Serialize;
+
     private const PER_PAGE = 1000;
     private const INDEX_PRODUCTS = 'products';
-
-    use Serialize;
 
     public function __construct(
         private DoctrineProductRepository $doctrineProductRepository,
         private Client $client,
         private ProductBulkIndexingSerializer $productBulkIndexingSerializer
-    ) { }
+    ) {
+    }
 
     public function index(): int
     {

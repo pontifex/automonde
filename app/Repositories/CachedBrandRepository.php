@@ -13,7 +13,8 @@ class CachedBrandRepository implements IBrandRepository
     public function __construct(
         private IBrandRepository $decoratedRepository,
         private IBrandCacheManager $brandCacheManager
-    ) { }
+    ) {
+    }
 
     public function addOne(
         Brand $brand

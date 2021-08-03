@@ -34,7 +34,8 @@ class ListBrandsController extends BaseController
     public function __construct(
         private IBrandRepository $brandRepository,
         private ISerializer $serializer
-    ) {}
+    ) {
+    }
 
     /**
      * @throws IncorrectFieldException

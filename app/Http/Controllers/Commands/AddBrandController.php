@@ -20,7 +20,8 @@ class AddBrandController extends BaseController
 
     public function __construct(
         private ISerializer $serializer
-    ) {}
+    ) {
+    }
 
     public function index(AddBrandRequest $request): Response
     {

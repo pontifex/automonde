@@ -12,7 +12,8 @@ class DoctrineProductRepository implements IProductRepository
 {
     public function __construct(
         private EntityManagerInterface $em
-    ) { }
+    ) {
+    }
 
     public function addOne(
         Product $product

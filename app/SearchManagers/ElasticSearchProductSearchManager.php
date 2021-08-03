@@ -23,7 +23,8 @@ class ElasticSearchProductSearchManager implements IProductSearchManager
         private ArrayProductHydrator $arrayProductHydrator,
         private SearchProductHydrator $searchProductHydrator,
         private ProductIndexingSerializer $productIndexingSerializer
-    ) { }
+    ) {
+    }
 
     public function addOne(Product $product)
     {

@@ -12,7 +12,8 @@ class ExistingModel implements Rule
 {
     public function __construct(
         private IModelRepository $modelRepository
-    ) { }
+    ) {
+    }
 
     public function passes($attribute, mixed $value): bool
     {

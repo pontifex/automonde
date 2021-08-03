@@ -20,7 +20,8 @@ class AddProductController extends BaseController
 
     public function __construct(
         private ISerializer $serializer
-    ) {}
+    ) {
+    }
 
     public function index(AddProductRequest $request): Response
     {

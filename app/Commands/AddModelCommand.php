@@ -8,7 +8,8 @@ class AddModelCommand
         private string $id,
         private string $name,
         private string $brandId
-    ) {}
+    ) {
+    }
 
     public function getId(): string
     {

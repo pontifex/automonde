@@ -11,7 +11,8 @@ final class ModelAdded
 
     public function __construct(
         private Model $model
-    ) {}
+    ) {
+    }
 
     public function getModel(): Model
     {
