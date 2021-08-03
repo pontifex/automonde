@@ -1,0 +1,22 @@
+dist: trusty
+sudo: required
+group: edge
+
+language: php
+php:
+  - '8.0'
+
+cache:
+  directories:
+    - vendor
+
+branches:
+  only:
+    - master
+
+#before_script:
+#  - chmod +x bin/travis_ci_before_script.sh
+#  - ./bin/travis_ci_before_script.sh
+
+script:
+  - vendor/bin/phpunit
