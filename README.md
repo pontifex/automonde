@@ -1,5 +1,13 @@
-### Doctrine support
+###Description
+Project is a back-end RESTfull (with custom enhancements) API for car classified app.
 
+### Technology:
+- PHP8 + Laravel8 + Doctrine2 (not Eloquent!) + MySQL8
+- ElasticSearch to handle classified searching
+- Horizon + Redis to handle time-consuming jobs
+- Redis as a cache layer
+
+### Doctrine support
 ```https://github.com/laravel-doctrine/orm```
 
 ### Local machine steps
