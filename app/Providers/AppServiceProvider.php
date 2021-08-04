@@ -135,8 +135,8 @@ class AppServiceProvider extends ServiceProvider
                     [
                         sprintf(
                             '%s:%d',
-                            env('ELASTICSEARCH_HOST'),
-                            env('ELASTICSEARCH_HOST_HTTP_PORT')
+                            env('ELASTICSEARCH_HOST', 'localhost'),
+                            env('ELASTICSEARCH_HOST_HTTP_PORT', 9200)
                         )
                     ]
                 )->build();
