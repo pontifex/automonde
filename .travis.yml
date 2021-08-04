@@ -3,10 +3,6 @@ dist: focal
 sudo: required
 group: stable
 
-language: php
-php:
-  - '8.0'
-
 cache:
   directories:
     - vendor
@@ -16,11 +12,7 @@ branches:
     - master
 
 before_script:
-  - sudo apt-get update
-  - sudo apt-get install php8.0-redis
-  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - php -i
-  - composer install
+  - cwd
 
 script:
   - vendor/bin/phpunit
