@@ -16,10 +16,10 @@ branches:
     - master
 
 before_script:
-  - php -i
   - sudo apt-get update
-  - sudo apt-get install php8-redis
+  - sudo apt-get install php8.0-redis
   - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - php -i
   - composer install
 
 script:
