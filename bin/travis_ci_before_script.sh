@@ -6,7 +6,7 @@ docker-compose up -d nginx mysql redis elasticsearch
 cd ..
 
 docker ps
-CONTAINER_NAME=$(docker ps | grep 'automonde_workspace' | awk '{ print \$15 }')
+CONTAINER_NAME=$(docker ps -aqf "ancestor=automonde_workspace")
 
 docker exec $CONTAINER_NAME composer install;
 
