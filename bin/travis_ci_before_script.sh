@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 cd laradock || exit
-cp .env.example .env
+cp ../.env.laradock .env
 docker-compose up -d nginx mysql redis elasticsearch
 cd ..
 
