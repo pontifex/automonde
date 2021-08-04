@@ -1,10 +1,8 @@
-dist: trusty
-sudo: required
-group: edge
+os: linux
+dist: focal
+group: stable
 
-language: php
-php:
-  - '8.0'
+language: generic
 
 cache:
   directories:
@@ -14,9 +12,9 @@ branches:
   only:
     - master
 
-#before_script:
-#  - chmod +x bin/travis_ci_before_script.sh
-#  - ./bin/travis_ci_before_script.sh
+services:
+  - docker
 
-script:
-  - vendor/bin/phpunit
+before_script:
+  - chmod +x bin/travis_ci_before_script.sh
+  - ./bin/travis_ci_before_script.sh
