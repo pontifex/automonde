@@ -12,7 +12,7 @@ branches:
     - master
 
 before_script:
-  - cwd
+  - pwd
 
 script:
   - vendor/bin/phpunit
