@@ -18,4 +18,3 @@ services:
 before_script:
   - chmod +x bin/travis_ci_before_script.sh
   - ./bin/travis_ci_before_script.sh
-  - pwd
