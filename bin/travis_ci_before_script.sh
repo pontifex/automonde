@@ -8,7 +8,7 @@ cd ..
 docker ps
 CONTAINER_NAME=$(docker ps -aqf "ancestor=automonde_workspace")
 
-docker exec $CONTAINER_NAME composer install;
+docker exec "$CONTAINER_NAME" composer install;
 
 cd laradock || exit
 docker-compose down
