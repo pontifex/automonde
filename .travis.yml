@@ -1,7 +1,7 @@
 os: linux
-dist: bionic
+dist: focal
 sudo: required
-group: edge
+group: stable
 
 language: php
 php:
@@ -15,14 +15,10 @@ branches:
   only:
     - master
 
-services:
-  - redis
-
 before_script:
   - sudo apt-get install php-redis
   - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - chmod +x bin/travis_ci_before_script.sh
-  - ./bin/travis_ci_before_script.sh
+  - composer install
 
 script:
   - vendor/bin/phpunit
