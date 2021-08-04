@@ -20,7 +20,7 @@ services:
 
 before_script:
   - sudo apt-get install php-redis
-  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.in
+  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - chmod +x bin/travis_ci_before_script.sh
   - ./bin/travis_ci_before_script.sh
 
