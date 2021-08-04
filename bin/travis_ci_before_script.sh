@@ -6,7 +6,7 @@ cd ..
 
 docker ps
 
-docker exec -it container_phpfpm_vloerkledenwinkel composer install;
+docker exec -it automonde_workspace_1 composer install;
 
 cd laradock || exit
 docker-compose down
