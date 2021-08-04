@@ -7,7 +7,7 @@ cd ..
 
 docker ps
 
-docker exec -it automonde_workspace_1 composer install;
+docker exec -it automonde_workspace_1_15c0483f9e57 composer install;
 
 cd laradock || exit
 docker-compose down
