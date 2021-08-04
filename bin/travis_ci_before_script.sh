@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
-set -e
-
-sudo service mysql stop
-
-cd laradock;
+cd laradock || exit
+cp ../.env.laradock .env
 docker-compose up -d nginx mysql redis elasticsearch
-
 cd ..
-composer install;
+
+docker ps
+CONTAINER_NAME=$(docker ps -aqf "ancestor=automonde_workspace")
+
+docker exec "$CONTAINER_NAME" composer install;
+
+cd laradock || exit
+docker-compose down
