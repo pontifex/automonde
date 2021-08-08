@@ -16,6 +16,7 @@ cp .env.example .env
 - ```docker-compose up -d nginx mysql redis elasticsearch```
 - ```docker exec -it automonde_workspace_1 bash```
 - ```composer install```
+- ```php artisan doctrine:migrations:migrate```
 - ```php artisan doctrine:generate:proxies```
 - ```php artisan elasticsearch:index:recreate products```
 - ```php artisan horizon```
