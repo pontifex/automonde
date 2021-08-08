@@ -3,6 +3,8 @@
 namespace App\Console;
 
 use App\Console\Commands\ElasticSearchIndexRecreate;
+use App\Console\Commands\HealthCheck\ElasticSearchHealthCheck;
+use App\Console\Commands\HealthCheck\RedisHealthCheck;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,6 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         ElasticSearchIndexRecreate::class,
+        ElasticSearchHealthCheck::class,
+        RedisHealthCheck::class,
     ];
 
     /**
