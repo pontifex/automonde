@@ -11,15 +11,14 @@ Project is a back-end RESTfull (with custom enhancements) API for car classified
 ```https://github.com/laravel-doctrine/orm```
 
 ### Local machine steps
-- (assuming you are in automonde/laradock dir) 
-cp .env.example .env
-- ```docker-compose up -d nginx mysql redis elasticsearch```
+- (assuming you are in automonde/laradock dir) ```cp .env.example .env```
+- ```cp laravel-horizon/supervisor.d/laravel-horizon.conf.example laravel-horizon/supervisor.d/laravel-horizon.conf```
+- ```docker-compose up -d nginx mysql redis elasticsearch laravel-horizon```
 - ```docker exec -it automonde_workspace_1 bash```
 - ```composer install```
 - ```php artisan doctrine:migrations:migrate```
 - ```php artisan doctrine:generate:proxies```
 - ```php artisan elasticsearch:index:recreate products```
-- ```php artisan horizon```
 
 ### Horizon
 Horizon is available on http://localhost/horizon
